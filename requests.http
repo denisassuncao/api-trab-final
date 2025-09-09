@@ -1,0 +1,67 @@
+### GraphQL & REST requests for VSCode REST Client
+
+# @name register
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "teste@ex.com",
+  "password": "123456"
+}
+
+###
+# @name login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "teste@ex.com",
+  "password": "123456"
+}
+
+###
+# Copy the token from login response below replacing {{token}}
+
+# @name restCreateItem
+POST http://localhost:3000/api/items
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Item via REST"
+}
+
+###
+# @name restListItems
+GET http://localhost:3000/api/items
+Authorization: Bearer {{token}}
+
+###
+# @name gqlAddItem
+POST http://localhost:3000/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "mutation { addItem(name: \"Item via GraphQL\") { id name } }"
+}
+
+###
+# @name gqlListItems
+POST http://localhost:3000/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "{ myItems { id name } }"
+}
+
+###
+# @name gqlDeleteItem
+POST http://localhost:3000/graphql
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "query": "mutation { deleteItem(id: \"COLOQUE_ID_AQUI\") }"
+}
